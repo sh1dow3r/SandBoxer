@@ -1,0 +1,23 @@
+---
+
+- name: install python related pre-requirment packages
+  package:
+    name:
+      - python 
+      - python-pip 
+      - python-dev 
+      -  python-virtualenv 
+      - python-setuptools
+    state: latest
+  
+- name: install misc pre-requirment packages
+  package: 
+    name:
+      - libjpeg-dev 
+      - zlib1g-dev     
+      - swig
+      - mongodb
+      - libffi-dev
+      - libssl-dev
+      - virtualbox
+    state: latest

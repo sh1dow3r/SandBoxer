@@ -1,0 +1,12 @@
+---
+# tasks file for SIFT-Cuckoo-Sandbox
+
+- name: including Requimerments installing 
+  include_tasks: requirements.yml
+  tags: pre-req
+
+- name: including cuckoo user creation/modification  
+  include_tasks: user_task.yml
+  tags: user_task
+
+

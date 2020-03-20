@@ -1,0 +1,8 @@
+---
+
+name: Add the user 'cuckoo' with a specific uid and a primary group of vboxusers and cuckoo
+user:
+  name: "{{ cuckoo_username }}"
+  comment: 'cuckoo sandbox user'
+  uid: 1020
+  group: vboxusers, cuckoo

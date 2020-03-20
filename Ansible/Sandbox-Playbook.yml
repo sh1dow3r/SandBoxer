@@ -1,0 +1,5 @@
+---
+- hosts: Cuckoo 
+  roles:
+          - SIFT-Cuckoo-Sandbox
+  gather_facts: no

@@ -1,0 +1,30 @@
+---
+# defaults file for SIFT-Cuckoo-Sandbox
+galaxy_info:
+  role_name: SIFT-Cuckoo-Sandbox
+  author: sh1dow3r
+  description: Cuckoo-Sandbox for SIFT workstation 
+  company: layer0.xyz
+
+  license: license (Apache)
+
+  min_ansible_version: 2.9.6
+
+
+  
+  github_branch: https://github.com/sh1dow3r/SandBoxer
+
+  platforms:
+   - name: Ubuntu
+     versions:
+     - 16.04
+  
+
+  galaxy_tags: [Cuckoo-Sandbox, SIFT-WorkStation, Forensics]
+
+
+dependencies: 
+  - virtualbox
+
+
+cuckoo_username: cuckoo_snadboxer
