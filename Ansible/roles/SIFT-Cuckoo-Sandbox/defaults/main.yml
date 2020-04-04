@@ -27,4 +27,9 @@ dependencies:
   - virtualbox
 
 
-cuckoo_username: cuckoo_snadboxer
+cuckoo_username: "cuckoo"
+cuckoo_group: "cuckoo"
+
+cuckoo_cwd: "/home/cuckoo/.cuckoo"
+
+vm_ip: 10.0.1.10

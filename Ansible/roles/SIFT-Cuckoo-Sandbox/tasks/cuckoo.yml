@@ -1,0 +1,41 @@
+---
+
+- name: create cuckoo group
+  group: name="{{cuckoo_group}}"
+
+- name: create cuckoo user
+  user: name="{{cuckoo_username}}" groups="{{cuckoo_group}}"
+
+- name: Add the user cuckoo with a specific uid and a primary group of vboxusers and cuckoo
+  user:
+    name: "{{cuckoo_username }}"
+    comment: 'cuckoo sandbox user'
+    uid: 1020
+    group: vboxusers
+
+
+- name: make sure pyopenssl is removed installed 
+  shell: rm -rf /usr/lib/python2.7/dist-packages/OpenSSL && rm -rf /usr/lib/python2.7/dist-packages/pyOpenSSL-0.15.1.egg-info
+
+
+- name: upgrade pip packege 
+  pip:
+     name: pip
+     extra_args: -U
+         
+- name: pip packege installment
+  pip:
+     name: 
+         - pyopenssl
+         - setuptools
+         - cuckoo
+
+- name: Check if the CWD already exists
+  stat: path={{ cuckoo_cwd }}/conf
+  register: cuckoo_stat_result
+  
+- name: Create cuckoo CWD
+  command: /usr/local/bin/cuckoo
+  when: cuckoo_stat_result.stat.exists == False
+  become: yes
+  become_user: cuckoo

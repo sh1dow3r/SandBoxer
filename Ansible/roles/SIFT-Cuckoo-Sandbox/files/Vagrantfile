@@ -1,0 +1,40 @@
+# encoding: utf-8
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Box / OS
+VAGRANT_BOX = "universalvishwa/windows-7-professional-x64"
+
+VM_NAME = 'windows-7'
+Vagrant.configure("2") do |config|
+	# Port forward WinRM (Windows Remote Management) and RDP
+	#config.vm.network "forwarded_port", guest: 3389, host: 3389, id: "rdp", auto_correct: true
+	#config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+
+
+	# winrm config, uses modern.ie default user/password.
+	# If other credentials are used must be changed here
+	config.vm.communicator = "winrm"
+	config.winrm.host = "localhost"
+	config.winrm.username = "IEUser"
+	config.winrm.password = "Passw0rd!"
+	config.vm.guest = :windows
+	# Vagrant box from Hashicorp
+	config.vm.box = VAGRANT_BOX
+	config.vm.boot_timeout = 500 
+	# Actual machine name
+	config.vm.hostname = VM_NAME
+	# Set VM name in Virtualbox
+	config.vm.provider "virtualbox" do |v|
+	    v.name = VM_NAME
+	    v.memory = 2048
+	end
+
+# Memorable name for your
+# VM User — 'vagrant' by default
+#VM_USER = 'vagrant'
+# Username on your Mac
+#MAC_USER = 'sh1dow3r'
+
+  
+
+end

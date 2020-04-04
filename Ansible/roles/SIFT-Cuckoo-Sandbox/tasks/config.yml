@@ -1,0 +1,21 @@
+---
+
+- name: Ensure config for intetsim "bind address" 
+  lineinfile:
+    path: /etc/inetsim/inetsim.conf
+    regexp: '^service_bind_address'
+    line: service_bind_address = {{ "vm_ip"}}
+
+- name: Ensure config for intetsim "defult dns ip" 
+  lineinfile:
+    path: /etc/inetsim/inetsim.conf
+    regexp: '^dns_default_ip'
+    line: dns_default_ip = {{ "vm_ip"}}
+
+- name: move vagrant file to the the VM 
+  copy:
+      src: Vagrantfile
+      dest: /tmp/Vagrantfile
+
+- name: run Vagrantfile
+  shell: cd /tmp/; vagrant up

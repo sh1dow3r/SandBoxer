@@ -1,2 +1,13 @@
 ---
 # vars file for SIFT-Cuckoo-Sandbox
+
+
+# ansible_connection: ssh
+# ansible_user: sansforensics
+# sudo_user: sansforensics
+# ansible_password: forensics
+# ansible_sudo_pass: forensics
+# ansible_become_method: enable
+
+# ansible_become: yes
+# host_key_checking : false
