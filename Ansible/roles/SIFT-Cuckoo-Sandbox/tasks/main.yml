@@ -5,11 +5,11 @@
   include_tasks: requirements.yml
   tags: pre_deployment
 
-# - name: include cuckoo user creation/modification  
-#   include: cuckoo.yml
-#   tags: deployment
+- name: include cuckoo user creation/modification  
+  include: cuckoo.yml
+  tags: deployment
 
-# - name: include cuckoo task installing AND other dependencies
-#   include: config.yml 
-#   tags: post_deployment
+- name: include cuckoo task installing AND other dependencies
+  include: config.yml 
+  tags: post_deployment
 

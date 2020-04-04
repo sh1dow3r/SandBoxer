@@ -1,3 +1,4 @@
 docs/SIFT-Workstation.ovf
-Ansible/roles/SIFT-Cuckoo-Sandbox/files/windows-7-professional-sp1-x64
+Ansible/roles/SIFT-Cuckoo-Sandbox/files/windows*
 Ansible/roles/SIFT-Cuckoo-Sandbox/files/.vagrant
+.DS_Store

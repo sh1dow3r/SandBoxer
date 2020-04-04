@@ -12,6 +12,11 @@
     regexp: '^dns_default_ip'
     line: dns_default_ip = {{ "vm_ip"}}
 
+- name: ship cuckoo config
+  copy:
+      src: ./cuckoo_config/
+      dest: /home/cuckoo/.cuckoo/conf
+
 - name: move vagrant file to the the VM 
   copy:
       src: Vagrantfile
@@ -19,3 +24,4 @@
 
 - name: run Vagrantfile
   shell: cd /tmp/; vagrant up
+  ignore_errors: yes

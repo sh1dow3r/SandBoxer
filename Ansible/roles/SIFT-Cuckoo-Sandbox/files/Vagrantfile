@@ -1,40 +1,63 @@
-# encoding: utf-8
+# cat Vagrantfile 
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-# Box / OS
-VAGRANT_BOX = "universalvishwa/windows-7-professional-x64"
 
-VM_NAME = 'windows-7'
+## Thanks to the discussion of various developers in this gist
+## https://gist.github.com/andreptb/57e388df5e881937e62a#gistcomment-2346821
+## Especially clement-igonet.
+
+### How to get Windows10 with Edge official base image run with WinRM and RDP:
+# To use Windows10-Edge vagrant you will first need to download https://aka.ms/msedge.win10.vagrant (this is now a zip file)
+# Execute `vagrant box add ./MsEdge\ -\ Win10.box --name Win10-official` after unzip the file to add the box to our base image list
+# In the first run we will enable winrm and rdp: `communicator=ssh  vagrant up`
+# we can now run `vagrant rdp` to rdp to the box if required with vagrant:vagrant
+
 Vagrant.configure("2") do |config|
-	# Port forward WinRM (Windows Remote Management) and RDP
-	#config.vm.network "forwarded_port", guest: 3389, host: 3389, id: "rdp", auto_correct: true
-	#config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
 
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
 
-	# winrm config, uses modern.ie default user/password.
-	# If other credentials are used must be changed here
-	config.vm.communicator = "winrm"
-	config.winrm.host = "localhost"
-	config.winrm.username = "IEUser"
-	config.winrm.password = "Passw0rd!"
+  # Configuring
+  config.vm.box = "vdelarosa/windows-10"
 	config.vm.guest = :windows
-	# Vagrant box from Hashicorp
-	config.vm.box = VAGRANT_BOX
-	config.vm.boot_timeout = 500 
-	# Actual machine name
-	config.vm.hostname = VM_NAME
-	# Set VM name in Virtualbox
-	config.vm.provider "virtualbox" do |v|
-	    v.name = VM_NAME
-	    v.memory = 2048
-	end
+  config.vm.communicator = ENV['communicator'] || "winrm"
+	config.winrm.username = "vagrant"
+  config.winrm.password = "vagrant"
+  config.vm.boot_timeout = 600
+  config.vm.graceful_halt_timeout = 600
+  # Configuring
+	config.ssh.username="vagrant"
+	config.ssh.password="vagrant"
+	config.ssh.insert_key = false
+    config.ssh.sudo_command = ''
+	config.ssh.shell = 'sh -l'
 
-# Memorable name for your
-# VM User — 'vagrant' by default
-#VM_USER = 'vagrant'
-# Username on your Mac
-#MAC_USER = 'sh1dow3r'
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 3389, host: 3389
+  config.vm.network :forwarded_port, guest: 3389, host: 3389
+  config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
 
-  
+  # Enabling RDP & WINRM:
 
+  config.vm.provision "shell",
+    binary: true,
+    privileged: false,
+    inline: <<-SHELL
+    # Enable RDP for vagrant
+		reg add "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+    netsh advfirewall firewall set rule group="remote desktop" new enable=yes
+    net localgroup "remote desktop users" vagrant /add
+    # winrm - Switch to private network
+    /cygdrive/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -InputFormat None -NoProfile -ExecutionPolicy Bypass -Command '$networkListManager = [Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]"{DCB00C01-570F-4A9B-8D69-199FDBA5723B}")) ; $connections = $networkListManager.GetNetworkConnections() ; $connections | % {$_.GetNetwork().SetCategory(1)}'
+		sc config winrm start= auto
+		cmd /C "winrm quickconfig -q"
+		exit
+  SHELL
 end
+
