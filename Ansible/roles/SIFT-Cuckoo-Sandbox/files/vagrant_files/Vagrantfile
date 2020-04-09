@@ -1,0 +1,53 @@
+# cat Vagrantfile 
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+## Thanks to the discussion of various developers in this gist
+## https://gist.github.com/andreptb/57e388df5e881937e62a#gistcomment-2346821
+## Especially clement-igonet.
+
+### How to get Windows10 with Edge official base image run with WinRM and RDP:
+# To use Windows10-Edge vagrant you will first need to download https://aka.ms/msedge.win10.vagrant (this is now a zip file)
+# Execute `vagrant box add ./MsEdge\ -\ Win10.box --name Win10-official` after unzip the file to add the box to our base image list
+# In the first run we will enable winrm and rdp: `communicator=ssh  vagrant up`
+# we can now run `vagrant rdp` to rdp to the box if required with vagrant:vagrant
+
+require 'yaml'
+
+current_dir    = File.dirname(File.expand_path(__FILE__))
+configs        = YAML.load_file("#{current_dir}/config.yaml")
+vagrant_config = configs['configs'][configs['configs']['use']]
+
+
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+
+
+  # Configuring netwokring and IP address 
+
+    #config.vm.network 'public_network', ip: vagrant_config['vm_ip'],  bridge: ['interface_name']
+    config.vm.network 'public_network', ip: "10.0.1.58",  bridge: "ens33"
+
+  # Configuring VM Box
+  config.vm.box = "vdelarosa/windows-10"
+	config.vm.guest = :windows
+
+  # Configuring remote access
+  config.vm.communicator = ENV['communicator'] || "winrm"
+	config.winrm.username = "vagrant"
+  config.winrm.password = "vagrant"
+  config.vm.boot_timeout = 600
+  config.vm.graceful_halt_timeout = 600
+  
+
+  config.vm.provider "virtualbox" do |vm|
+      vm.name = "Windows10_Sandboxer"
+      vm.gui = true
+      vm.cpus = 2
+      vm.memory = 2048
+  end
+end
