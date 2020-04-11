@@ -36,3 +36,15 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+
+
+## HOW TO
+
+* Note: you have to enable VTX for virtualzaiotn on SIFT
+
+* 1- Deploy the first two tasks.
+* 2- deploy third one.
+* 3- vagrant up.
+* 4- run script for snapshot.
+* 5- have fun with cuckoo.
