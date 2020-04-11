@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Run vagrant up
-sudo su; cd /home/cuckoo/vagrant_files; vagrant up 2>/dev/null
+vagrant up 
 
 
 #Make snapshot of the vm  

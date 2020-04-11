@@ -1,21 +1,36 @@
 ---
 
 - name: create cuckoo group
-  group: name="{{cuckoo_group}}"
+  group: 
+    name: "{{cuckoo_group}}"
 
-- name: create cuckoo user
-  user: name="{{cuckoo_username}}" groups="{{cuckoo_group}}"
+- name: create cuckoo:cuckoo user and password
+  user: 
+    name: "{{ cuckoo_username }}"
+    password: "$6$Ri2zp1t.$nsRKPQ4xeYZZvatJe.uBSknf/RqsOsf4wyzGhCeOfZYrojbYfx0ARiD1m/gUGFhBgg/H9ebWT2l2ypvPh7HL3/" #this is a hash password is 'cuckoo'
+    groups: 
+       - cuckoo
+       - sudo
+       - vboxusers
+       - root
 
-- name: Add the user cuckoo with a specific uid and a primary group of vboxusers and cuckoo
-  user:
-    name: "{{cuckoo_username }}"
-    comment: 'cuckoo sandbox user'
-    uid: 1020
-    group: vboxusers
+# - name: Add the user cuckoo with a specific uid and a primary group of vboxusers and cuckoo
+#   user:
+#     name: "{{ cuckoo_username }}"
+#     comment: 'cuckoo sandbox user'
+#     uid: 1020
+#     groups:
+#        - cuckoo
+#        - sudo
+#        - vboxusers
 
-
-- name: make sure pyopenssl is removed installed 
-  shell: rm -rf /usr/lib/python2.7/dist-packages/OpenSSL && rm -rf /usr/lib/python2.7/dist-packages/pyOpenSSL-0.15.1.egg-info
+- name: make sure pyopenssl is removed before installing pip 
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /usr/lib/python2.7/dist-packages/OpenSSL
+    - /usr/lib/python2.7/dist-packages/pyOpenSSL-0.15.1.egg-info
 
 
 - name: upgrade pip packege 
@@ -29,6 +44,12 @@
          - pyopenssl
          - setuptools
          - cuckoo
+
+- name: upgrade cuckoo packege 
+  pip:
+     name: cuckoo
+     extra_args: -U
+
 
 - name: Check if the CWD already exists
   stat: path={{ cuckoo_cwd }}/conf

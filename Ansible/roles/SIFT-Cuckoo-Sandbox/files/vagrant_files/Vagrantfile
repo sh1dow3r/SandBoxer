@@ -29,11 +29,11 @@ Vagrant.configure("2") do |config|
 
   # Configuring netwokring and IP address 
 
-    config.vm.network 'public_network', ip: "10.0.1.59", netmask: "255.255.0.0"
+    #config.vm.network 'public_network', ip: "10.0.1.59", netmask: "255.255.0.0"
     #config.vm.network "private_network", ip: "10.0.1.58",  :name => 'vboxnet0'
     #config.vm.network 'hostonly', ip: "10.11.12.13", :netmask => "255.255.0.0"
     #config.vm.network "hostonly", ip: "192.168.33.10"
-    #config.vm.network :private_network, ip: "10.0.1.58", netmask: "255.255.0.0"
+    config.vm.network :private_network, ip: "10.0.1.58", netmask: "255.255.0.0"
 
   # Configuring VM Box
   config.vm.box = "vdelarosa/windows-10"

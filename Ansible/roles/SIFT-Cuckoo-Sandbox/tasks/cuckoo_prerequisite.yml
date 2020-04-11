@@ -102,3 +102,16 @@
   shell: "echo 'y' | VBoxManage extpack install --replace /tmp/Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack"
 
 
+
+- name: clean up extension pack for virtualbox file 
+  file:
+    state: absent
+    path: "/tmp/Oracle_VM_VirtualBox_Extension_Pack-6.1.4.vbox-extpack"
+  become: true
+
+- name: clean up vagrant and virtualbox files 
+  file:
+    state: absent
+    path: "/tmp/vagrant_2.2.7_x86_64.deb"
+  become: true
+  

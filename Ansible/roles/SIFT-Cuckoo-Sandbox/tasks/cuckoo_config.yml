@@ -4,24 +4,70 @@
   lineinfile:
     path: /etc/inetsim/inetsim.conf
     regexp: '^service_bind_address'
-    line: service_bind_address = {{ "vm_ip"}}
+    line: service_bind_address = {{ "host_ip"}}
+
 
 - name: Ensure config for intetsim "defult dns ip" 
   lineinfile:
     path: /etc/inetsim/inetsim.conf
     regexp: '^dns_default_ip'
-    line: dns_default_ip = {{ "vm_ip"}}
+    line: dns_default_ip = {{ "host_ip" }}
 
-- name: ship cuckoo config
+
+- name: Add the VM ip cuckoo conf file 
+  lineinfile:
+    path: "{{cuckoo_cwd}}/conf/cuckoo.conf"
+    regexp: '^ip = 192.168.56.1'
+    line: ip = {{ host_ip }}
+
+
+- name: Add the VM ip vbox conf file 
+  lineinfile:
+    path: "{{cuckoo_cwd}}/conf/virtualbox.conf"
+    regexp: '^ip = '
+    line: ip = {{ vm_ip }}
+
+
+- name: Add the supervised file config 
+  lineinfile:
+    path: "{{cuckoo_cwd}}/supervisord.conf"
+    regexp: '^user = cuckoo'
+    line: root
+
+
+- name: move vagrant file to the vagrant_files
   copy:
-      src: ./cuckoo_config/
-      dest: /home/cuckoo/.cuckoo/conf
+      src: vagrant_files/
+      dest: "/home/cuckoo/vagrant_files/"
 
-- name: move vagrant file to the the VM 
+- name: move malware sample to sample folder 
   copy:
-      src: Vagrantfile
-      dest: /tmp/Vagrantfile
+      src: Samples/VirusShare_2d839669a87a277d46f70c175ccbbd12_malware
+      dest: /home/cuckoo/sample/
 
-- name: run Vagrantfile
-  shell: cd /tmp/; vagrant up
-  ignore_errors: yes
+
+# - name: ship virtualbox cuckoo config
+#   copy:
+#       src: cuckoo_conf/conf/virtualbox.conf
+#       dest: /home/cuckoo/.cuckoo/conf/virtualbox.con
+
+
+# - name: run Vagrantfile
+#   shell: su bash ; cd /tmp/vagrant_files; vagrant up;
+#   ignore_errors: yes
+
+# - name: snapshot cuckoo1 
+#   shell: VBoxManage snapshot cuckoo1 take "Stable_State" --description "stable state for cuckoo1";
+#   ignore_errors: yes
+
+# - name: run Vbox1
+#   shell: VBoxManage hostonlyif create
+
+# - name: run Vbox 2
+#   shell: VBoxManage hostonlyif ipconfig vboxnet0 --ip {{ "vm_ip" }} --netmask 255.255.255.0
+
+# - name: Add the VM ip physical conf file 
+#   lineinfile:
+#     path: "{{cuckoo_cwd}}/conf/physical.conf"
+#     regexp: '^ip = '
+#     line: ip = {{ host_ip }}

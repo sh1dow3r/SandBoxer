@@ -32,4 +32,6 @@ cuckoo_group: "cuckoo"
 
 cuckoo_cwd: "/home/cuckoo/.cuckoo"
 
-vm_ip: 10.0.1.10
+host_ip: 10.0.1.14
+
+vm_ip: 10.0.1.58
