@@ -16,7 +16,7 @@ This prjoect deploy cukcoo sandbox to sandbox workstation
 
 
 
-##Resource:
+## Resource:
 
 * https://github.com/fyhertz/ansible-role-cuckoo
 * https://github.com/jdauphant/ansible-role-vagrant
