@@ -2,3 +2,5 @@ docs/SIFT-Workstation.ovf
 Ansible/roles/SIFT-Cuckoo-Sandbox/files/windows*
 Ansible/roles/SIFT-Cuckoo-Sandbox/files/.vagrant
 .DS_Store
+vars.yml
+
