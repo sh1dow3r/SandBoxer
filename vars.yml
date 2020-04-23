@@ -1,12 +1,13 @@
+# VCenter Vars
 validate_certs: no
 vcenter_address: 10.0.1.20
 vcenter_username: 'administrator@vsphere.local'
-vcenter_password: 
+vcenter_password: "ThePassword"  
 SIFT_name: "SIFT_Workstation"
 SIFT_network: 'Internal Network'
-SIFT_datastore: 
-SIFT_datacenter: 
-SIFT_resource_pool:
-SIFT_folder:
+SIFT_datastore: "T3_SSD_2B_2"
+SIFT_datacenter: "Moonlight"
+SIFT_resource_pool: "Dev"
+SIFT_folder: "DFIR"
 SIFT_OVA_fila: '/Users/t3/Desktop/ISOs/SIFT-Workstation.ovf'
 
