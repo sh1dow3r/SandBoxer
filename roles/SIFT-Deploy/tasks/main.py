@@ -5,11 +5,13 @@
     username: '{{ vcenter_username }}'
     password: '{{ vcenter_password }}'
     allow_duplicates: false
-    name: 'SIFT Workstation'
-    ovf: '{{Path_To_SIFT_Workstation}}'
-    networks: "{{ VM_network }}'}"
-    datastore: '{{ datastore }}'
-    datacenter: '{{ datacenter }}'
+    name: '{{ SIFT_name }}'
+    networks: '{{ VM_network }}'
+    datastore: '{{ SIFT_datastore }}'
+    datacenter: '{{ SIFT_datacenter }}'
+    resource_pool: '{{ SIFT_resource_pool}}'
+    folder: '{{ SIFT_Folder }}'
+    ovf: '{{SIFT_OVA_file}}'
     wait_for_ip_address: false
     power_on: yes
   delegate_to: localhost
