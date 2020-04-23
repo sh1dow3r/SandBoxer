@@ -1,5 +1,10 @@
 ---
-- hosts: Cuckoo
+- name: Ansible-Deploy
+  hosts: Cuckoo
+  gather_facts: false
+  vars_files: 
+    - vars.yml
   roles:
-          - SIFT-Cuckoo-Sandbox
-  gather_facts: no
+    - SIFT-Deploy
+    - SIFT-Cuckoo-Sandbox
+  
