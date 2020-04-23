@@ -1,0 +1,12 @@
+validate_certs: no
+vcenter_address: 10.0.1.20
+vcenter_username: 'administrator@vsphere.local'
+vcenter_password: 
+SIFT_name: "SIFT_Workstation"
+SIFT_network: 'Internal Network'
+SIFT_datastore: 
+SIFT_datacenter: 
+SIFT_resource_pool:
+SIFT_folder:
+SIFT_OVA_fila: '/Users/t3/Desktop/ISOs/SIFT-Workstation.ovf'
+
