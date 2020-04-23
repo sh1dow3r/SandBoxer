@@ -1,13 +1,22 @@
-# VCenter Vars
+#Deploy SIFT-Workstation vars
+plugin: vmware_vm_inventory
 validate_certs: no
 vcenter_address: 10.0.1.20
-vcenter_username: 'administrator@vsphere.local'
-vcenter_password: "ThePassword"  
-SIFT_name: "SIFT_Workstation"
-SIFT_network: 'Internal Network'
-SIFT_datastore: "T3_SSD_2B_2"
+vcenter_username: 'administrator@layer0.xyz'
+vcenter_password: "VerySecurePassword"  
+SIFT_name: "SIFT_Workstation-test"
+SIFT_vswitch: 'AirGap'
+SIFT_portgroup: 'AirGap_Sandbox'
+SIFT_datastore: "datastore"
 SIFT_datacenter: "Moonlight"
-SIFT_resource_pool: "Dev"
+SIFT_resource_pool: "Dev_RP"
 SIFT_folder: "DFIR"
-SIFT_OVA_fila: '/Users/t3/Desktop/ISOs/SIFT-Workstation.ovf'
+SIFT_OVA_file: '/Users/t3/Desktop/ISOs/SIFT-Workstation.ovf'
 
+
+#Cuckoo vars
+cuckoo_username: "cuckoo"
+cuckoo_group: "cuckoo"
+cuckoo_cwd: "/home/cuckoo/.cuckoo"
+host_ip: 10.0.1.49
+vm_ip: 10.0.1.112
