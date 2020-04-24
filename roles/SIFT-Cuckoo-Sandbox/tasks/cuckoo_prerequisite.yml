@@ -71,7 +71,11 @@
   package: 
     name:
       - libjpeg-dev
-      - zlib1g-dev    
+      - zlib1g-dev 
+      - libcurl3
+      - libpng12
+      - libvpx3  
+      - libsdl-ttf2
       - swig
       - mongodb
       - libffi-dev
