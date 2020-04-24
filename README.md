@@ -1,6 +1,6 @@
 # SandBoxer
 
-This project aims to deploy SIFT workstation and configure Cuckoo Sandbox to automate the malware analysis process.
+This project aims to deploy SIFT workstation and configure Cuckoo Sandbox to automate the malware analysis process.  
 For Further read: check [Blog Post](https://layer0.xyz/malware_forensics/2020/04/14/Cuckoo_SIFT_With_Ansible/)  
 
 ## Resources:
