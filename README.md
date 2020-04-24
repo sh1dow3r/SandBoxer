@@ -1,22 +1,9 @@
 # SandBoxer
 
-This prjoect deploy cukcoo sandbox to sandbox workstation 
+This project aims to deploy SIFT workstation and configure Cuckoo Sandbox to automate the malware analysis process.
+For Further read: check [Blog Post](https://layer0.xyz/malware_forensics/2020/04/14/Cuckoo_SIFT_With_Ansible/)  
 
-## HOW TO
-
-* Note: you have to enable VTX for virtualzaiotn on SIFT
-
-* 1- Deploy the first two tasks.
-* 2- deploy third one.
-* 3- vagrant up.
-* 4- run script for snapshot.
-* 5- have fun with cuckoo.
-
-
-
-
-
-## Resource:
+## Resources:
 
 * https://github.com/fyhertz/ansible-role-cuckoo
 * https://github.com/jdauphant/ansible-role-vagrant
